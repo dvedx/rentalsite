@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Speedline Exotics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --surface: #f3f9fb;
+    --surface-2: #e8f3f6;
+    --blue: #14b0ce;
+    --blue-deep: #0b86a0;
+    --blue-tint: #dff3f8;
+    --ink: #22282b;
+    --ink-muted: #64727a;
+    --border: rgba(34,40,43,0.10);
+    --border-strong: rgba(34,40,43,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', -apple-system, sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bebas Neue', 'Inter', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.97;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:900px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+  a:focus-visible, button:focus-visible{outline:2px solid var(--blue-deep); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1180px; margin:0 auto; padding:9px 32px;
+    border-bottom:1px solid var(--border);
+    font-size:12px; letter-spacing:0.04em; color:var(--ink-muted);
+  }
+  .topbar .call{color:var(--ink-muted); font-weight:500;}
+  .topbar .call a{color:var(--blue-deep); font-weight:700; margin-left:7px; transition:color .2s ease;}
+  .topbar .call a:hover{color:var(--blue);}
+  @media (max-width:640px){ .topbar span.tagline{display:none;} }
+
+  nav{
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+    max-width:1180px; margin:0 auto; padding:14px 32px;
+  }
+  .logo{display:flex; align-items:center; justify-self:start;}
+  .logo img{height:38px; width:auto;}
+  .nav-links{display:flex; align-items:center; gap:0; font-size:14px; font-weight:500; justify-self:center;}
+  .nav-links a{color:var(--ink-muted); transition:color .2s ease; padding:0 18px; border-right:1px solid var(--border-strong);}
+  .nav-links a:last-child{border-right:none;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a.active{color:var(--blue-deep);}
+  .nav-cta{font-size:13.5px; font-weight:600; padding:11px 22px; background:var(--blue-deep); color:#fff; border-radius:2px; transition:background .2s ease; justify-self:end;}
+  .nav-cta:hover{background:var(--blue);}
+  .nav-accent{height:3px; background:var(--blue);}
+  .burger{display:none; background:none; border:none; color:var(--ink); font-size:22px; cursor:pointer; justify-self:end;}
+  @media (max-width:860px){
+    nav{grid-template-columns:1fr auto;}
+    .nav-links, .nav-cta.desktop{display:none;}
+    .burger{display:block;}
+  }
+
+  /* ---------- PAGE HEADER ---------- */
+  .page-header{padding:170px 0 60px; border-bottom:1px solid var(--border); background:var(--surface);}
+  .page-header .wrap{max-width:1180px;}
+  .page-header .section-tag{color:var(--blue-deep); font-weight:600; font-size:14px; margin-bottom:10px; display:block;}
+  .page-header h1{font-size:clamp(40px,6vw,68px); margin-bottom:16px;}
+  .page-header p{color:var(--ink-muted); font-size:17px; max-width:56ch;}
+
+  /* ---------- FAQ ACCORDION ---------- */
+  .section{padding:80px 0 110px;}
+  .faq-item{border-bottom:1px solid var(--border);}
+  .faq-item:first-child{border-top:1px solid var(--border);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center; gap:20px;
+    padding:26px 0; font-family:'Inter'; font-size:17px; font-weight:600; color:var(--ink);
+  }
+  .faq-q .icon{
+    flex-shrink:0; width:22px; height:22px; position:relative;
+  }
+  .faq-q .icon::before, .faq-q .icon::after{
+    content:""; position:absolute; background:var(--blue-deep); border-radius:1px;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+  .faq-q .icon::before{width:100%; height:2px; top:50%; left:0; transform:translateY(-50%);}
+  .faq-q .icon::after{width:2px; height:100%; left:50%; top:0; transform:translateX(-50%);}
+  .faq-item.open .faq-q .icon::after{transform:translateX(-50%) rotate(90deg); opacity:0;}
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+  }
+  .faq-a p{color:var(--ink-muted); font-size:15.5px; padding-bottom:26px; max-width:70ch;}
+  .faq-item.open .faq-a{max-height:400px;}
+
+  .faq-cta{
+    margin-top:70px; background:var(--surface); border:1px solid var(--border); border-radius:4px;
+    padding:44px 40px; display:flex; justify-content:space-between; align-items:center; gap:30px; flex-wrap:wrap;
+  }
+  .faq-cta h3{font-size:26px; max-width:16ch;}
+  .faq-cta p{color:var(--ink-muted); margin-top:8px;}
+  .btn-primary{
+    background:var(--blue-deep); color:#fff; padding:15px 28px; font-weight:600; font-size:14.5px;
+    border-radius:2px; transition: background .2s ease, transform .15s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:var(--blue); transform:translateY(-1px);}
+
+  /* ---------- FOOTER ---------- */
+  footer.site-footer{border-top:1px solid var(--border); padding:56px 0 40px; background:var(--surface);}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px; max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr; row-gap:36px;} }
+  .foot-col h4{font-size:13px; color:var(--ink-muted); font-weight:600; margin-bottom:16px;}
+  .foot-col a, .foot-col p{font-size:14.5px; color:var(--ink); display:block; margin-bottom:10px;}
+  .foot-col a{color:var(--ink-muted); transition:color .2s ease;}
+  .foot-col a:hover{color:var(--blue-deep);}
+  .foot-logo img{height:30px; margin-bottom:14px;}
+  .foot-bottom{
+    max-width:1180px; margin:50px auto 0; padding:24px 32px 0; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-muted); flex-wrap:wrap; gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <span class="tagline">24/7 delivery — Miami-Dade, Broward &amp; Fort Lauderdale Int'l</span>
+    <span class="call">Call now<a href="tel:+12019888764">(201) 988-8764</a></span>
+  </div>
+  <nav>
+    <a href="index.html" class="logo"><img src="speedline-logo.png" alt="Speedline Exotics"></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#fleet">Fleet</a>
+      <a href="faq.html" class="active">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <a href="reserve.html" class="nav-cta desktop">Reserve a car</a>
+    <button class="burger" aria-label="Menu">&#9776;</button>
+  </nav>
+  <div class="nav-accent"></div>
+</header>
+
+<main>
+
+  <div class="page-header">
+    <div class="wrap">
+      <span class="section-tag">FAQ</span>
+      <h1>Everything you need to know.</h1>
+      <p>The short answers to what people usually ask before booking. Can't find yours? Reach out and we'll get back to you same day.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+
+      <div class="faq-list">
+
+        <div class="faq-item open">
+          <button class="faq-q"><span>How does booking work?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>Reserve online or by phone — pick your car, dates and delivery location. We confirm the same day, then deliver the car fueled and detailed to your address. No showroom visit required.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q"><span>Is there a mileage limit?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>Each rental includes 125 miles per day. Need more? Let us know when you book and we can arrange additional mileage.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q"><span>Is insurance included?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>Yes — every rental includes insurance coverage, so you're covered from the moment the car is delivered to the moment it's picked up.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q"><span>Do I need to be a certain age to rent?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>There's no age requirement to rent with us. A valid driver's license is required for every renter.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q"><span>Where do you deliver?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>We deliver anywhere in Miami-Dade — South Beach, Brickell, Downtown, Coral Gables, Fisher &amp; Star Island — as well as Broward County and Fort Lauderdale International Airport (FLL). Average delivery time is under an hour inside Miami-Dade.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q"><span>How fast can I get a car delivered?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>Average delivery time is about 55 minutes from the time your reservation is confirmed. Landing at MIA or FLL? Send us your flight info and we'll time delivery to your arrival.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q"><span>What happens when the rental ends?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>Text or call us when you're done. We'll come pick the car up wherever it is — your hotel, home, or the airport — no need to drop it off anywhere.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q"><span>Do you require a deposit?</span><span class="icon"></span></button>
+          <div class="faq-a"><p>Submitting a reservation request doesn't charge you anything. We'll call or email to confirm details and collect payment information before the car is delivered.</p></div>
+        </div>
+
+      </div>
+
+      <div class="faq-cta">
+        <div>
+          <h3>Still have a question?</h3>
+          <p>Call, email, or send us a message and we'll help you out directly.</p>
+        </div>
+        <a href="contact.html" class="btn-primary">Contact us</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="foot-grid">
+    <div class="foot-col">
+      <a href="index.html" class="foot-logo"><img src="speedline-logo.png" alt="Speedline Exotics"></a>
+      <p style="color:var(--ink-muted); max-width:32ch;">Exotic and luxury car rental, delivered anywhere in Miami-Dade. Licensed and insured.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Fleet</h4>
+      <a href="index.html#fleet">Supercars</a>
+      <a href="index.html#fleet">Luxury SUVs</a>
+      <a href="index.html#fleet">Sedans</a>
+    </div>
+    <div class="foot-col">
+      <h4>Company</h4>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact us</a>
+      <a href="reserve.html">Reserve a car</a>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <a href="tel:+12019888764">(201) 988-8764</a>
+      <a href="mailto:reserve@speedlineexotics.com">reserve@speedlineexotics.com</a>
+      <p style="color:var(--ink-muted);">Miami, FL</p>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Speedline Exotics. All rights reserved.</span>
+    <span>Insurance included on every rental. Valid driver's license required.</span>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el){ el.classList.remove('open'); });
+      if(!wasOpen){ item.classList.add('open'); }
+    });
+  });
+</script>
+
+</body>
+</html>
