@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speedline Exotics — Miami Exotic Car Rental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #ffffff;
+    --surface: #f3f9fb;
+    --surface-2: #e8f3f6;
+    --blue: #14b0ce;
+    --blue-deep: #0b86a0;
+    --blue-tint: #dff3f8;
+    --ink: #22282b;
+    --ink-muted: #64727a;
+    --border: rgba(34,40,43,0.10);
+    --border-strong: rgba(34,40,43,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', -apple-system, sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Bebas Neue', 'Inter', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.97;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+  a:focus-visible, button:focus-visible{outline:2px solid var(--blue-deep); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+  }
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1180px; margin:0 auto; padding:9px 32px;
+    border-bottom:1px solid var(--border);
+    font-size:12px; letter-spacing:0.04em; color:var(--ink-muted);
+  }
+  .topbar .call{color:var(--ink-muted); font-weight:500;}
+  .topbar .call a{color:var(--blue-deep); font-weight:700; margin-left:7px; transition:color .2s ease;}
+  .topbar .call a:hover{color:var(--blue);}
+  @media (max-width:640px){ .topbar span.tagline{display:none;} }
+
+  nav{
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+    max-width:1180px; margin:0 auto; padding:14px 32px;
+  }
+  .logo{display:flex; align-items:center; justify-self:start;}
+  .logo img{height:38px; width:auto;}
+  .nav-links{display:flex; align-items:center; gap:0; font-size:14px; font-weight:500; justify-self:center;}
+  .nav-links a{color:var(--ink-muted); transition:color .2s ease; padding:0 18px; border-right:1px solid var(--border-strong);}
+  .nav-links a:last-child{border-right:none;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a.active{color:var(--blue-deep);}
+  .nav-cta{
+    font-size:13.5px; font-weight:600; padding:11px 24px;
+    background:var(--blue-deep); color:#fff; border-radius:999px;
+    transition:background .2s ease;
+    justify-self:end;
+  }
+  .nav-cta:hover{background:var(--blue);}
+  .nav-accent{height:3px; background:var(--blue);}
+  .burger{display:none; background:none; border:none; color:var(--ink); font-size:22px; cursor:pointer; justify-self:end;}
+  @media (max-width:860px){
+    nav{grid-template-columns:1fr auto;}
+    .nav-links, .nav-cta.desktop{display:none;}
+    .burger{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:620px;
+    display:flex; align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero-bg{position:absolute; inset:0; z-index:0;}
+  .hero-bg img{width:100%; height:100%; object-fit:cover; display:block;}
+  .hero-scrim{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(6,20,26,0.18) 0%, rgba(6,20,26,0.62) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2; width:100%;
+    max-width:1180px; margin:0 auto; padding:0 32px 56px;
+  }
+  .hero-search{
+    display:flex; align-items:center; gap:12px;
+    background:#fff; border-radius:999px; padding:8px 8px 8px 22px;
+    max-width:560px; margin-bottom:60px; box-shadow:0 12px 30px rgba(10,25,32,0.18);
+  }
+  .hero-search input{
+    flex:1; border:none; outline:none; font-family:'Inter'; font-size:14.5px; color:var(--ink); background:none;
+  }
+  .hero-search input::placeholder{color:var(--ink-muted);}
+  .hero-search button{
+    border:none; background:var(--blue-deep); color:#fff; border-radius:999px; padding:12px 22px;
+    font-size:13.5px; font-weight:600; cursor:pointer; transition:background .2s ease; flex-shrink:0;
+  }
+  .hero-search button:hover{background:var(--blue);}
+  .hero h1{color:#fff; font-size:clamp(44px,6.5vw,78px); margin-bottom:14px; text-shadow:0 2px 18px rgba(0,0,0,0.25);}
+  .hero-sub{
+    display:inline-block; background:rgba(10,25,32,0.42); backdrop-filter:blur(2px);
+    color:#f2f7f8; font-size:15px; max-width:56ch; padding:10px 16px; border-radius:6px; margin-bottom:22px;
+  }
+  .hero-rating{display:flex; align-items:center; gap:12px; color:#fff; font-size:13.5px; flex-wrap:wrap;}
+  .hero-rating .stars{color:#ffc94a; letter-spacing:2px; font-size:15px;}
+  .hero-rating b{font-weight:700;}
+  .hero-rating .rating-tag{opacity:0.85; font-size:12.5px;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:88px 0; position:relative; z-index:2;}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-head h2{font-size:clamp(34px,5vw,52px); margin-bottom:16px;}
+  .section-head p{color:var(--ink-muted); font-size:16.5px; max-width:52ch;}
+  .section-tag{color:var(--blue-deep); font-weight:700; font-size:12.5px; letter-spacing:0.08em; margin-bottom:12px; display:block;}
+
+  /* ---------- DRIVE NOW STRIP ---------- */
+  .drive-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;}
+  .drive-head h2{font-size:clamp(30px,4vw,42px);}
+  .view-all{
+    font-size:13px; font-weight:600; padding:10px 20px; border-radius:999px;
+    background:var(--blue-deep); color:#fff; transition:background .2s ease; flex-shrink:0;
+  }
+  .view-all:hover{background:var(--blue);}
+
+  .strip-outer{position:relative;}
+  .strip{
+    display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding:2px 32px 10px;
+    scrollbar-width:none;
+  }
+  .strip::-webkit-scrollbar{display:none;}
+  .strip-card{
+    flex:0 0 220px; scroll-snap-align:start; border:1px solid var(--border); border-radius:8px; overflow:hidden;
+    background:#fff; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .strip-card:hover{transform:translateY(-3px); box-shadow:0 14px 28px rgba(11,134,160,0.14);}
+  .strip-card .tile{
+    height:140px; display:flex; align-items:center; justify-content:center; padding:16px;
+  }
+  .strip-card .tile svg{width:100%; height:100%;}
+  .strip-card .info{padding:14px 16px 18px;}
+  .strip-card .brand-row{display:flex; align-items:center; gap:8px; margin-bottom:4px;}
+  .brand-dot{
+    width:20px; height:20px; border-radius:50%; background:var(--blue-deep); color:#fff;
+    font-size:10.5px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .strip-card .brand-row span{font-size:12px; color:var(--ink-muted);}
+  .strip-card h3{font-family:'Inter'; font-size:15px; font-weight:600; margin-bottom:8px; color:var(--ink);}
+  .strip-card .price{font-size:16px; font-weight:700; color:var(--blue-deep);}
+  .strip-card .price span{font-size:12px; color:var(--ink-muted); font-weight:400;}
+
+  .strip-nav{display:flex; gap:10px; justify-content:flex-end; padding:0 32px; margin-top:6px;}
+  .strip-nav button{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--border-strong); background:#fff;
+    cursor:pointer; font-size:14px; color:var(--ink); transition:background .2s ease, color .2s ease;
+  }
+  .strip-nav button:hover{background:var(--blue-deep); color:#fff; border-color:var(--blue-deep);}
+
+  /* ---------- CONVENIENCE ---------- */
+  .conv-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center;}
+  @media (max-width:900px){ .conv-grid{grid-template-columns:1fr;} }
+  .conv-copy p{color:var(--ink-muted); font-size:16px; max-width:44ch;}
+  .conv-visual{position:relative;}
+  .conv-slide{
+    border-radius:10px; overflow:hidden; aspect-ratio:16/10; background:var(--surface);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .conv-slide svg{width:70%; height:70%;}
+  .conv-controls{display:flex; justify-content:space-between; align-items:center; margin-top:14px;}
+  .conv-dots{display:flex; gap:8px;}
+  .conv-dots span{width:8px; height:8px; border-radius:50%; background:var(--border-strong); transition:background .2s ease;}
+  .conv-dots span.active{background:var(--blue-deep);}
+  .conv-arrows{display:flex; gap:8px;}
+  .conv-arrows button{
+    width:32px; height:32px; border-radius:50%; border:1px solid var(--border-strong); background:#fff;
+    cursor:pointer; font-size:13px; color:var(--ink); transition:background .2s ease, color .2s ease;
+  }
+  .conv-arrows button:hover{background:var(--blue-deep); color:#fff; border-color:var(--blue-deep);}
+
+  .white-glove{text-align:center; margin-top:90px;}
+  .white-glove h3{font-family:'Inter'; font-size:24px; font-weight:700; margin-bottom:10px;}
+  .white-glove p{color:var(--ink-muted); font-size:15px; margin-bottom:44px;}
+  .glove-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:36px; max-width:900px; margin:0 auto;}
+  @media (max-width:760px){ .glove-steps{grid-template-columns:1fr; text-align:left;} }
+  .glove-step{display:flex; flex-direction:column; align-items:center; gap:12px;}
+  @media (max-width:760px){ .glove-step{flex-direction:row; align-items:flex-start;} }
+  .glove-step .num{
+    width:32px; height:32px; border-radius:50%; background:var(--blue-deep); color:#fff;
+    font-size:14px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .glove-step p{font-size:14px; color:var(--ink-muted); max-width:26ch;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .quotes{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border);}
+  @media (max-width:860px){ .quotes{grid-template-columns:1fr;} }
+  .quote{background:#ffffff; padding:34px 30px;}
+  .quote p{font-size:16px; color:var(--ink); margin-bottom:20px;}
+  .quote footer{font-size:13px; color:var(--ink-muted);}
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-block{
+    background:var(--surface); border:1px solid var(--border); border-radius:4px;
+    padding:70px 50px; text-align:left; display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap;
+  }
+  .cta-block h2{font-size:clamp(32px,4.5vw,48px); max-width:14ch;}
+  .cta-block p{color:var(--ink-muted); margin-top:14px; max-width:40ch;}
+  .btn-primary{
+    background:var(--blue-deep); color:#fff; padding:16px 30px; font-weight:600; font-size:15px;
+    border-radius:999px; transition: background .2s ease, transform .15s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:var(--blue); transform:translateY(-1px);}
+
+  /* ---------- FOOTER ---------- */
+  footer.site-footer{border-top:1px solid var(--border); padding:56px 0 40px; background:var(--surface);}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px;}
+  @media (max-width:760px){ .foot-grid{grid-template-columns:1fr 1fr; row-gap:36px;} }
+  .foot-col h4{font-size:13px; color:var(--ink-muted); font-weight:600; margin-bottom:16px;}
+  .foot-col a, .foot-col p{font-size:14.5px; color:var(--ink); display:block; margin-bottom:10px;}
+  .foot-col a{color:var(--ink-muted); transition:color .2s ease;}
+  .foot-col a:hover{color:var(--blue-deep);}
+  .foot-logo img{height:30px; margin-bottom:14px;}
+  .foot-bottom{
+    margin-top:50px; padding-top:24px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-muted); flex-wrap:wrap; gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <span class="tagline">24/7 delivery — Miami-Dade, Broward &amp; Fort Lauderdale Int'l</span>
+    <span class="call">Call now<a href="tel:+12019888764">(201) 988-8764</a></span>
+  </div>
+  <nav>
+    <a href="index.html" class="logo"><img src="speedline-logo.png" alt="Speedline Exotics"></a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="#fleet">Fleet</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <a href="reserve.html" class="nav-cta desktop">Reserve a car</a>
+    <button class="burger" aria-label="Menu">&#9776;</button>
+  </nav>
+  <div class="nav-accent"></div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="hero-cars.webp" alt="Row of exotic cars parked under palm trees in Miami">
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-inner">
+      <form class="hero-search" id="heroSearch">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64727a" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="heroSearchInput" placeholder="Search by brand or car">
+        <button type="submit">Search</button>
+      </form>
+      <h1>Speedline Exotics</h1>
+      <p class="hero-sub">Experience Miami from behind the wheel of an exceptional vehicle. Speedline Exotics offers an elevated driving experience with a carefully curated selection of luxury and exotic cars, paired with effortless service from start to finish.</p>
+      <div class="hero-rating">
+        <span class="stars">★★★★★</span>
+        <b>Highly rated by our clients</b>
+        <span class="rating-tag">— reviews on request</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRIVE NOW / FLEET STRIP -->
+  <section class="section" id="fleet" style="padding-bottom:20px;">
+    <div class="wrap">
+      <div class="drive-head">
+        <h2>Drive now</h2>
+        <a href="reserve.html" class="view-all">View all</a>
+      </div>
+    </div>
+
+    <div class="strip-outer">
+      <div class="strip" id="fleetStrip">
+
+        <div class="strip-card" data-name="corvette stingray c8 3lt american muscle">
+          <div class="tile" style="background:linear-gradient(135deg,#eaf7fa,#d3edf3);">
+            <svg viewBox="0 0 200 70" fill="none" stroke="#0b86a0" stroke-width="2.4"><path d="M10 50 Q20 34 44 30 L70 22 Q96 15 124 20 L150 29 Q170 33 190 46 L190 52 L176 52 Q173 60 163 60 Q153 60 150 52 L70 52 Q67 60 57 60 Q47 60 44 52 L10 52 Z"/><circle cx="57" cy="52" r="10"/><circle cx="163" cy="52" r="10"/></svg>
+          </div>
+          <div class="info">
+            <div class="brand-row"><span class="brand-dot">C</span><span>Chevrolet · American muscle</span></div>
+            <h3>Corvette Stingray C8 3LT</h3>
+            <div class="price">$495<span>/day</span></div>
+          </div>
+        </div>
+
+        <div class="strip-card" data-name="mercedes benz s580 executive sedan">
+          <div class="tile" style="background:linear-gradient(135deg,#eef6f8,#dcecef);">
+            <svg viewBox="0 0 200 70" fill="none" stroke="#0b86a0" stroke-width="2.4"><path d="M8 50 L12 32 Q22 20 44 19 L152 19 Q172 20 182 32 L188 50 L174 50 Q172 60 162 60 Q152 60 150 50 L56 50 Q54 60 44 60 Q34 60 32 50 Z"/><circle cx="44" cy="50" r="10"/><circle cx="162" cy="50" r="10"/></svg>
+          </div>
+          <div class="info">
+            <div class="brand-row"><span class="brand-dot">M</span><span>Mercedes-Benz · Sedan</span></div>
+            <h3>Mercedes-Benz S580</h3>
+            <div class="price">$695<span>/day</span></div>
+          </div>
+        </div>
+
+        <div class="strip-card" data-name="mercedes maybach s580 ultra luxury sedan">
+          <div class="tile" style="background:linear-gradient(135deg,#e6f4f7,#cfe9ee);">
+            <svg viewBox="0 0 200 70" fill="none" stroke="#0b86a0" stroke-width="2.4"><path d="M6 50 L10 31 Q20 19 42 18 L156 18 Q176 19 186 31 L192 50 L176 50 Q174 60 164 60 Q154 60 152 50 L54 50 Q52 60 42 60 Q32 60 30 50 Z"/><circle cx="42" cy="50" r="10"/><circle cx="164" cy="50" r="10"/></svg>
+          </div>
+          <div class="info">
+            <div class="brand-row"><span class="brand-dot">M</span><span>Mercedes-Maybach · Sedan</span></div>
+            <h3>Mercedes-Maybach S580</h3>
+            <div class="price">$1,295<span>/day</span></div>
+          </div>
+        </div>
+
+        <div class="strip-card" data-name="mercedes maybach gls 600 ultra luxury suv">
+          <div class="tile" style="background:linear-gradient(135deg,#e6f4f7,#cfe9ee);">
+            <svg viewBox="0 0 200 70" fill="none" stroke="#0b86a0" stroke-width="2.4"><path d="M12 50 L14 30 Q16 18 32 18 L160 18 Q178 18 182 30 L186 50 L172 50 Q170 60 160 60 Q150 60 148 50 L52 50 Q50 60 40 60 Q30 60 28 50 Z"/><circle cx="40" cy="50" r="10"/><circle cx="160" cy="50" r="10"/></svg>
+          </div>
+          <div class="info">
+            <div class="brand-row"><span class="brand-dot">M</span><span>Mercedes-Maybach · SUV</span></div>
+            <h3>Mercedes-Maybach GLS 600</h3>
+            <div class="price">$1,595<span>/day</span></div>
+          </div>
+        </div>
+
+        <div class="strip-card" data-name="cadillac escalade v esv 2026 luxury suv">
+          <div class="tile" style="background:linear-gradient(135deg,#eaf7fa,#d3edf3);">
+            <svg viewBox="0 0 200 70" fill="none" stroke="#0b86a0" stroke-width="2.4"><path d="M10 50 L12 29 Q14 17 30 17 L166 17 Q182 17 184 29 L188 50 L174 50 Q172 60 162 60 Q152 60 150 50 L50 50 Q48 60 38 60 Q28 60 26 50 Z"/><circle cx="38" cy="50" r="10"/><circle cx="162" cy="50" r="10"/></svg>
+          </div>
+          <div class="info">
+            <div class="brand-row"><span class="brand-dot">C</span><span>Cadillac · SUV</span></div>
+            <h3>Escalade V ESV 2026</h3>
+            <div class="price">$895<span>/day</span></div>
+          </div>
+        </div>
+
+        <div class="strip-card" data-name="lamborghini urus super suv">
+          <div class="tile" style="background:linear-gradient(135deg,#e2f2f6,#c6e6ec);">
+            <svg viewBox="0 0 200 70" fill="none" stroke="#0b86a0" stroke-width="2.4"><path d="M12 50 L15 31 Q19 19 36 18 L158 18 Q176 19 182 31 L186 50 L172 50 Q170 60 160 60 Q150 60 148 50 L52 50 Q50 60 40 60 Q30 60 28 50 Z"/><circle cx="40" cy="50" r="10"/><circle cx="160" cy="50" r="10"/><path d="M84 18 L100 18 L112 30 L74 30 Z" opacity="0.5"/></svg>
+          </div>
+          <div class="info">
+            <div class="brand-row"><span class="brand-dot">L</span><span>Lamborghini · Super SUV</span></div>
+            <h3>Lamborghini Urus</h3>
+            <div class="price">$1,795<span>/day</span></div>
+          </div>
+        </div>
+
+        <div class="strip-card" data-name="rolls royce cullinan widebody ultra luxury suv">
+          <div class="tile" style="background:linear-gradient(135deg,#eef6f8,#dcecef);">
+            <svg viewBox="0 0 200 70" fill="none" stroke="#0b86a0" stroke-width="2.4"><path d="M10 50 L12 28 Q15 16 34 16 L164 16 Q182 16 186 28 L192 50 L176 50 Q174 60 164 60 Q154 60 152 50 L48 50 Q46 60 36 60 Q26 60 24 50 Z"/><circle cx="36" cy="50" r="10.5"/><circle cx="164" cy="50" r="10.5"/></svg>
+          </div>
+          <div class="info">
+            <div class="brand-row"><span class="brand-dot">R</span><span>Rolls-Royce · SUV</span></div>
+            <h3>Cullinan Widebody</h3>
+            <div class="price">$2,195<span>/day</span></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="strip-nav">
+        <button id="stripPrev" aria-label="Scroll left">&#8592;</button>
+        <button id="stripNext" aria-label="Scroll right">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONVENIENCE -->
+  <section class="section">
+    <div class="wrap">
+      <div class="conv-grid">
+        <div class="conv-copy">
+          <span class="section-tag">ELEVATE YOUR DRIVE WITH US</span>
+          <h2>Convenience</h2>
+          <p>Reserve your car and schedule delivery to whatever location suits you — your hotel, home, marina or the airport curb. No showroom visit, no waiting around.</p>
+        </div>
+        <div class="conv-visual">
+          <div class="conv-slide" id="convSlide">
+            <!-- filled by JS -->
+          </div>
+          <div class="conv-controls">
+            <div class="conv-dots" id="convDots"></div>
+            <div class="conv-arrows">
+              <button id="convPrev" aria-label="Previous">&#8592;</button>
+              <button id="convNext" aria-label="Next">&#8594;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="white-glove">
+        <h3>Experience White Glove Service Right to Your Door</h3>
+        <p>How our premium delivery service works:</p>
+        <div class="glove-steps">
+          <div class="glove-step">
+            <span class="num">1</span>
+            <p>Reserve online or by phone — we confirm your booking the same day.</p>
+          </div>
+          <div class="glove-step">
+            <span class="num">2</span>
+            <p>Share your flight or schedule and we'll time delivery to when you land or arrive.</p>
+          </div>
+          <div class="glove-step">
+            <span class="num">3</span>
+            <p>When you're done, we come pick up the car — wherever it is, whenever you're ready.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="quotes">
+        <div class="quote">
+          <p>"Landed at MIA at 11pm and the Escalade V was already sitting at arrivals, fueled up. Didn't even have to think about it."</p>
+          <footer>D. Marchetti — Brickell</footer>
+        </div>
+        <div class="quote">
+          <p>"Booked the Maybach GLS for a wedding weekend. They picked it up from the venue at 1am without me having to do anything."</p>
+          <footer>R. Ibarra — Coral Gables</footer>
+        </div>
+        <div class="quote">
+          <p>"I've used three other exotic rental companies in Miami. Speedline is the only one that's never once been late."</p>
+          <footer>S. Okonkwo — South Beach</footer>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section" id="book" style="padding-top:0;">
+    <div class="wrap">
+      <div class="cta-block">
+        <div>
+          <h2>Your car, delivered before your flight lands.</h2>
+          <p>Tell us the dates, the car and the address. We'll handle the rest.</p>
+        </div>
+        <a href="tel:+12019888764" class="btn-primary">Call (201) 988-8764</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <a href="index.html" class="foot-logo"><img src="speedline-logo.png" alt="Speedline Exotics"></a>
+        <p style="color:var(--ink-muted); max-width:32ch;">Exotic and luxury car rental, delivered anywhere in Miami-Dade. Licensed and insured.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Fleet</h4>
+        <a href="#fleet">Supercars</a>
+        <a href="#fleet">Luxury SUVs</a>
+        <a href="#fleet">Sedans</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact us</a>
+        <a href="reserve.html">Reserve a car</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:+12019888764">(201) 988-8764</a>
+        <a href="mailto:reserve@speedlineexotics.com">reserve@speedlineexotics.com</a>
+        <p style="color:var(--ink-muted);">Miami, FL</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Speedline Exotics. All rights reserved.</span>
+      <span>Insurance included on every rental. Valid driver's license required.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // fleet strip scroll buttons
+  (function(){
+    const strip = document.getElementById('fleetStrip');
+    document.getElementById('stripPrev').addEventListener('click', ()=> strip.scrollBy({left:-460, behavior:'smooth'}));
+    document.getElementById('stripNext').addEventListener('click', ()=> strip.scrollBy({left:460, behavior:'smooth'}));
+  })();
+
+  // hero search: scrolls to fleet and filters cards by name
+  (function(){
+    const form = document.getElementById('heroSearch');
+    const input = document.getElementById('heroSearchInput');
+    const cards = document.querySelectorAll('.strip-card');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const q = input.value.trim().toLowerCase();
+      cards.forEach(function(card){
+        const match = !q || card.dataset.name.includes(q);
+        card.style.display = match ? '' : 'none';
+      });
+      document.getElementById('fleet').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  })();
+
+  // convenience slide carousel (3 original illustrations)
+  (function(){
+    const slides = [
+      // Huracan photo
+      '<img src="huracan-interior.avif" alt="Lamborghini Huracan EVO" style="width:100%; height:100%; object-fit:cover;">',
+      // key handoff
+      '<svg viewBox="0 0 200 200" fill="none" stroke="#0b86a0" stroke-width="7"><circle cx="70" cy="100" r="26"/><line x1="94" y1="112" x2="150" y2="150"/><line x1="120" y1="130" x2="112" y2="145"/><line x1="135" y1="140" x2="127" y2="155"/><circle cx="70" cy="100" r="9" fill="#14b0ce" stroke="none"/></svg>',
+      // delivery route
+      '<svg viewBox="0 0 200 200" fill="none" stroke="#0b86a0" stroke-width="7"><circle cx="40" cy="150" r="10" fill="#14b0ce" stroke="none"/><circle cx="160" cy="55" r="10" fill="#14b0ce" stroke="none"/><path d="M40 150 Q 90 60 160 55" stroke-dasharray="10 10"/></svg>'
+    ];
+    let idx = 0;
+    const slideEl = document.getElementById('convSlide');
+    const dotsEl = document.getElementById('convDots');
+    slides.forEach((_, i)=>{
+      const d = document.createElement('span');
+      if(i===0) d.classList.add('active');
+      dotsEl.appendChild(d);
+    });
+    function render(){
+      slideEl.innerHTML = slides[idx];
+      Array.from(dotsEl.children).forEach((d,i)=> d.classList.toggle('active', i===idx));
+    }
+    document.getElementById('convPrev').addEventListener('click', ()=>{ idx = (idx-1+slides.length)%slides.length; render(); });
+    document.getElementById('convNext').addEventListener('click', ()=>{ idx = (idx+1)%slides.length; render(); });
+    render();
+  })();
+</script>
+
+</body>
+</html>
